@@ -195,15 +195,8 @@
     }
     #btnInsta:active, #btnMaps:active{ transform: scale(.98); }
 
-    /* Instagram fica no canto direito */
-    #btnInsta{
-      right: 12px;
-    }
-
-    /* Localização fica do lado ESQUERDO do Instagram */
-    #btnMaps{
-      right: 66px; /* 46px do botão + 8px de espaço + 12px da borda */
-    }
+    #btnInsta{ right: 12px; }
+    #btnMaps{ right: 66px; }
 
     #btnInsta svg, #btnMaps svg{
       width: 22px;
@@ -314,6 +307,135 @@
     }
 
     button.opt:active{ transform:scale(.98); }
+
+    /* ✅ BOTÃO "POR QUE NÓS?" */
+    #btnPqN{
+      min-width: 150px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+
+    /* ✅ MODAL / GALERIA */
+    #galleryModal{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:999999;
+      padding: 14px;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .galBox{
+      width: min(720px, 100%);
+      margin: 0 auto;
+      height: calc(100dvh - 28px);
+      border-radius: 22px;
+      border:1px solid rgba(212,164,47,.22);
+      background: rgba(10,10,11,.92);
+      box-shadow: 0 30px 120px rgba(0,0,0,.65);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .galTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(212,164,47,.15);
+    }
+
+    .galTitle{
+      font-weight:900;
+      color: var(--gold2);
+      letter-spacing:1px;
+      font-size:14px;
+    }
+
+    /* ✅ FECHAR PREMIUM (ÍCONE) */
+    .galClose{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+
+      border:1px solid rgba(212,164,47,.25);
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,.55);
+
+      color: var(--gold2);
+      font-weight:900;
+      font-size:16px;
+    }
+    .galClose:active{ transform:scale(.98); }
+
+    .galClose svg{
+      width: 20px;
+      height: 20px;
+      stroke: var(--gold2);
+      fill: none;
+      stroke-width: 2.6;
+    }
+
+    .galImgWrap{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px;
+      background: rgba(0,0,0,.35);
+    }
+
+    #galImg{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.06);
+      background:#000;
+    }
+
+    .galCaption{
+      padding: 12px 14px;
+      text-align:center;
+      font-size:13px;
+      color:#e6e0d6;
+      border-top: 1px solid rgba(212,164,47,.15);
+    }
+
+    .galControls{
+      display:flex;
+      gap:10px;
+      padding: 12px 14px 14px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      justify-content:space-between;
+    }
+
+    .galBtn{
+      flex:1;
+      padding:12px 12px;
+      border-radius:16px;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.06);
+      color:#eaeaea;
+      font-weight:900;
+    }
+    .galBtn:active{ transform:scale(.98); }
+
+    .galBtn.gold{
+      background: rgba(212,164,47,.95);
+      color:#111;
+      border:1px solid rgba(255,216,107,.35);
+    }
   </style>
 </head>
 
@@ -334,6 +456,33 @@
     </div>
   </section>
 
+  <!-- ✅ MODAL GALERIA (POR QUE NÓS?) -->
+  <section id="galleryModal">
+    <div class="galBox">
+      <div class="galTop">
+        <div class="galTitle">POR QUE NÓS?</div>
+
+        <button class="galClose" id="btnGalClose" type="button" aria-label="Fechar">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 6l12 12"></path>
+            <path d="M18 6l-12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="galImgWrap">
+        <img id="galImg" src="" alt="Galeria" />
+      </div>
+
+      <div class="galCaption" id="galCaption"></div>
+
+      <div class="galControls">
+        <button class="galBtn" id="btnPrev" type="button">◀</button>
+        <button class="galBtn gold" id="btnNext" type="button">▶</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== APP ===== -->
   <section id="app">
     <button id="btnHome" type="button">INÍCIO</button>
@@ -347,7 +496,7 @@
       </svg>
     </a>
 
-    <!-- ✅ BOTÃO LOCALIZAÇÃO (OPÇÃO 2) AO LADO DO INSTAGRAM -->
+    <!-- ✅ BOTÃO LOCALIZAÇÃO -->
     <a id="btnMaps" href="https://maps.app.goo.gl/RdC3VnSshRV9Q4NG9" target="_blank" rel="noopener" aria-label="Localização SOM D CARRO SP">
       <svg viewBox="0 0 24 24" stroke-width="2">
         <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z"></path>
@@ -371,9 +520,14 @@
         <div class="badge" id="txtTonalidade">Tonalidade: Sem Insulfilm</div>
       </div>
 
+      <!-- ✅ linha com Lateral / Interno + botão POR QUE NÓS? -->
       <div class="row" id="rowAngulos">
         <button class="opt active" type="button" data-ang="lat">Lateral</button>
         <button class="opt" type="button" data-ang="int">Interno</button>
+
+        <button class="opt" id="btnPqN" type="button">
+          POR QUE NÓS?
+        </button>
       </div>
 
       <div style="height:10px;"></div>
@@ -390,6 +544,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function(){
 
+      /* ===== CATÁLOGO ===== */
       const angleNames = { lat: "Lateral", int: "Interno" };
 
       const toneNames = {
@@ -452,9 +607,9 @@
         window.scrollTo(0,0);
       });
 
-      document.querySelectorAll("#rowAngulos button").forEach(function(btn){
+      document.querySelectorAll("#rowAngulos button[data-ang]").forEach(function(btn){
         btn.addEventListener("click", function(){
-          document.querySelectorAll("#rowAngulos button").forEach(function(b){
+          document.querySelectorAll("#rowAngulos button[data-ang]").forEach(function(b){
             b.classList.remove("active");
           });
           btn.classList.add("active");
@@ -474,6 +629,63 @@
           currentTone = btn.dataset.ton;
           updateImage();
         });
+      });
+
+      /* ===== POR QUE NÓS? (GALERIA) ===== */
+      const galleryModal = document.getElementById("galleryModal");
+      const btnPqN = document.getElementById("btnPqN");
+      const btnGalClose = document.getElementById("btnGalClose");
+      const btnPrev = document.getElementById("btnPrev");
+      const btnNext = document.getElementById("btnNext");
+
+      const galImg = document.getElementById("galImg");
+      const galCaption = document.getElementById("galCaption");
+
+      /* ✅ SOMENTE 4 FOTOS */
+      const galItems = [
+        { src: "imagens/pqn_1.jpg", txt: "Atendimento rápido e profissional ✅" },
+        { src: "imagens/pqn_2.jpg", txt: "Aplicação com acabamento premium ✅" },
+        { src: "imagens/pqn_3.jpg", txt: "Ambiente organizado e seguro ✅" },
+        { src: "imagens/pqn_4.jpg", txt: "Equipe com experiência ✅" }
+      ];
+
+      let galIndex = 0;
+
+      function openGallery(){
+        galIndex = 0;
+        galleryModal.style.display = "block";
+        showGal();
+      }
+
+      function closeGallery(){
+        galleryModal.style.display = "none";
+      }
+
+      function showGal(){
+        galImg.src = galItems[galIndex].src;
+        galCaption.textContent = galItems[galIndex].txt;
+      }
+
+      function prevGal(){
+        galIndex = (galIndex - 1 + galItems.length) % galItems.length;
+        showGal();
+      }
+
+      function nextGal(){
+        galIndex = (galIndex + 1) % galItems.length;
+        showGal();
+      }
+
+      btnPqN.addEventListener("click", openGallery);
+      btnGalClose.addEventListener("click", closeGallery);
+      btnPrev.addEventListener("click", prevGal);
+      btnNext.addEventListener("click", nextGal);
+
+      // fechar clicando fora
+      galleryModal.addEventListener("click", function(e){
+        if(e.target === galleryModal){
+          closeGallery();
+        }
       });
 
     });
