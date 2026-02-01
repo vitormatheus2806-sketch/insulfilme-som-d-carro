@@ -35,7 +35,6 @@
       padding: 22px 22px 10px;
       z-index:99999;
 
-      /* camada escura reduzida em 50% */
       background:
         linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.425)),
         url("https://i.supaimg.com/798d5cd0-1dee-4b7d-9b02-bbcd9f9b55a8.jpg");
@@ -129,7 +128,6 @@
       padding-bottom: 160px;
     }
 
-    /* HEADER colado no topo */
     header{
       position:sticky;
       top:0;
@@ -157,7 +155,6 @@
       filter: drop-shadow(0 0 18px rgba(212,164,47,.35));
     }
 
-    /* Botão INÍCIO */
     #btnHome{
       position:fixed;
       top: calc(env(safe-area-inset-top) + 64px);
@@ -174,7 +171,6 @@
     }
     #btnHome:active{ transform:scale(.98); }
 
-    /* ===== VIEWER ===== */
     #viewer{
       padding: 10px 14px 10px;
       display:flex;
@@ -291,7 +287,6 @@
       </div>
 
       <button class="splashBtn" id="btnEnter" type="button">ENTRAR</button>
-
       <div class="hint">SATURNINO PEREIRA 738 ✅</div>
     </div>
   </section>
@@ -301,7 +296,6 @@
     <button id="btnHome" type="button">INÍCIO</button>
 
     <header>
-      <!-- ✅ CORRIGIDO: sua pasta é "logotipo" -->
       <img src="logotipo/logo.png" alt="SOM D CARRO SP" />
     </header>
 
@@ -327,16 +321,13 @@
       <div class="row" id="rowTonalidades">
         <button class="opt active" type="button" data-ton="sem">Sem Insulfilm</button>
         <button class="opt" type="button" data-ton="lei">Dentro da Lei</button>
-        <button class="opt" type="button" data-ton="g520">G5/20</button>
         <button class="opt" type="button" data-ton="g5">G5</button>
         <button class="opt" type="button" data-ton="g20">G20</button>
-        <button class="opt" type="button" data-ton="g35">G35</button>
       </div>
     </div>
   </section>
 
   <script>
-    // ✅ FIX TOTAL: não trava no GitHub Pages e não dá "Unexpected token"
     document.addEventListener("DOMContentLoaded", function(){
 
       const angleNames = { lat: "Lateral", int: "Interno" };
@@ -344,10 +335,8 @@
       const toneNames = {
         sem: "Sem Insulfilm",
         lei: "Dentro da Lei",
-        g520: "G5/20",
         g5: "G5",
-        g20: "G20",
-        g35: "G35"
+        g20: "G20"
       };
 
       let currentAngle = "lat";
