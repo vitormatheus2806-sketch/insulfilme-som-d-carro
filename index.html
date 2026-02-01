@@ -157,7 +157,7 @@
 
     #btnHome{
       position:fixed;
-      top: calc(env(safe-area-inset-top) + 40px); /* ✅ mais pra cima */
+      top: calc(env(safe-area-inset-top) + 40px);
       left:12px;
       z-index:9999;
       padding:10px 12px;
@@ -171,10 +171,10 @@
     }
     #btnHome:active{ transform:scale(.98); }
 
-    /* ✅ BOTÕES (INSTAGRAM + MAPS) NO CANTO SUPERIOR DIREITO */
+    /* ✅ BOTÕES INSTAGRAM + MAPS NA MESMA ALTURA */
     #btnInsta, #btnMaps{
       position: fixed;
-      right: 12px;
+      top: calc(env(safe-area-inset-top) + 40px);
       z-index: 9999;
 
       width: 46px;
@@ -195,12 +195,14 @@
     }
     #btnInsta:active, #btnMaps:active{ transform: scale(.98); }
 
+    /* Instagram fica no canto direito */
     #btnInsta{
-      top: calc(env(safe-area-inset-top) + 40px); /* ✅ mais pra cima */
+      right: 12px;
     }
 
+    /* Localização fica do lado ESQUERDO do Instagram */
     #btnMaps{
-      top: calc(env(safe-area-inset-top) + 96px); /* ✅ abaixo do insta */
+      right: 66px; /* 46px do botão + 8px de espaço + 12px da borda */
     }
 
     #btnInsta svg, #btnMaps svg{
@@ -345,7 +347,7 @@
       </svg>
     </a>
 
-    <!-- ✅ BOTÃO LOCALIZAÇÃO (OPÇÃO 2) -->
+    <!-- ✅ BOTÃO LOCALIZAÇÃO (OPÇÃO 2) AO LADO DO INSTAGRAM -->
     <a id="btnMaps" href="https://maps.app.goo.gl/RdC3VnSshRV9Q4NG9" target="_blank" rel="noopener" aria-label="Localização SOM D CARRO SP">
       <svg viewBox="0 0 24 24" stroke-width="2">
         <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z"></path>
