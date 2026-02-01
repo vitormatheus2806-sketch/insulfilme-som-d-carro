@@ -381,7 +381,7 @@
       stroke-width: 2.6;
     }
 
-    /* ✅ NOVO: wrapper com setas sobre a imagem */
+    /* ✅ área da imagem */
     .galImgArea{
       flex:1;
       position:relative;
@@ -401,7 +401,7 @@
       background:#000;
     }
 
-    /* ✅ Setas flutuantes na lateral */
+    /* ✅ Setas flutuantes */
     .galArrow{
       position:absolute;
       top: 50%;
@@ -429,16 +429,18 @@
     .galArrow.left{ left: 12px; }
     .galArrow.right{ right: 12px; }
 
+    /* ✅ TEXTO SUBIDO (mais pra cima) */
     .galCaption{
-      padding: 12px 14px;
+      padding: 14px 16px;
       text-align:center;
       font-size:13px;
       color:#e6e0d6;
       border-top: 1px solid rgba(212,164,47,.15);
-    }
+      background: rgba(0,0,0,.22);
 
-    /* ✅ removi a barra de botões embaixo porque agora ficou flutuante */
-    .galControls{ display:none; }
+      /* ✅ isso sobe a legenda visualmente (sem quebrar nada) */
+      margin-top: -10px;
+    }
   </style>
 </head>
 
@@ -641,11 +643,24 @@
       const galImg = document.getElementById("galImg");
       const galCaption = document.getElementById("galCaption");
 
+      /* ✅ 4 FOTOS COM TEXTO PROFISSIONAL */
       const galItems = [
-        { src: "imagens/png_1.jpg", txt: "Atendimento rápido e profissional ✅" },
-        { src: "imagens/png_2.jpg", txt: "Aplicação com acabamento premium ✅" },
-        { src: "imagens/png_3.jpg", txt: "Ambiente organizado e seguro ✅" },
-        { src: "imagens/png_4.jpg", txt: "Equipe com experiência ✅" }
+        {
+          src: "imagens/png_1.jpg",
+          txt: "Aquário: espaço exclusivo para aplicação do Insulfilm, reduzindo ao máximo contaminações e sujeiras causadas pelo vento."
+        },
+        {
+          src: "imagens/png_2.jpg",
+          txt: "Trabalhamos com as melhores marcas do mercado, garantindo mais visibilidade, qualidade e retenção de calor."
+        },
+        {
+          src: "imagens/png_3.jpg",
+          txt: "Sistema de corte computadorizado: corte específico para cada carro, acabamento impecável nos vidros, sem uso de estilete e sem risco de cortar borrachas ou riscar o veículo."
+        },
+        {
+          src: "imagens/png_4.jpg",
+          txt: "O desenho do vidro sai direto do computador e vai para a máquina, garantindo um corte perfeito, pronto para aplicação."
+        }
       ];
 
       let galIndex = 0;
