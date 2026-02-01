@@ -381,13 +381,15 @@
       stroke-width: 2.6;
     }
 
-    .galImgWrap{
+    /* ✅ NOVO: wrapper com setas sobre a imagem */
+    .galImgArea{
       flex:1;
+      position:relative;
+      padding: 12px;
+      background: rgba(0,0,0,.35);
       display:flex;
       align-items:center;
       justify-content:center;
-      padding: 12px;
-      background: rgba(0,0,0,.35);
     }
 
     #galImg{
@@ -399,6 +401,34 @@
       background:#000;
     }
 
+    /* ✅ Setas flutuantes na lateral */
+    .galArrow{
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+
+      border:1px solid rgba(212,164,47,.25);
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,.55);
+
+      color: var(--gold2);
+      font-weight:900;
+      font-size:18px;
+      user-select:none;
+    }
+    .galArrow:active{ transform: translateY(-50%) scale(.98); }
+
+    .galArrow.left{ left: 12px; }
+    .galArrow.right{ right: 12px; }
+
     .galCaption{
       padding: 12px 14px;
       text-align:center;
@@ -407,31 +437,8 @@
       border-top: 1px solid rgba(212,164,47,.15);
     }
 
-    .galControls{
-      display:flex;
-      gap:10px;
-      padding: 12px 14px 14px;
-      border-top: 1px solid rgba(255,255,255,.06);
-      justify-content:space-between;
-    }
-
-    .galBtn{
-      flex:1;
-      padding:12px 12px;
-      border-radius:16px;
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.06);
-      color:#eaeaea;
-      font-weight:900;
-    }
-    .galBtn:active{ transform:scale(.98); }
-
-    .galBtn.gold{
-      background: rgba(212,164,47,.95);
-      color:#111;
-      border:1px solid rgba(255,216,107,.35);
-    }
+    /* ✅ removi a barra de botões embaixo porque agora ficou flutuante */
+    .galControls{ display:none; }
   </style>
 </head>
 
@@ -452,7 +459,7 @@
     </div>
   </section>
 
-  <!-- ✅ MODAL GALERIA (POR QUE NÓS?) -->
+  <!-- ✅ MODAL GALERIA -->
   <section id="galleryModal">
     <div class="galBox">
       <div class="galTop">
@@ -466,16 +473,13 @@
         </button>
       </div>
 
-      <div class="galImgWrap">
+      <div class="galImgArea">
+        <div class="galArrow left" id="btnPrev">◀</div>
         <img id="galImg" src="" alt="Galeria" />
+        <div class="galArrow right" id="btnNext">▶</div>
       </div>
 
       <div class="galCaption" id="galCaption"></div>
-
-      <div class="galControls">
-        <button class="galBtn" id="btnPrev" type="button">◀</button>
-        <button class="galBtn gold" id="btnNext" type="button">▶</button>
-      </div>
     </div>
   </section>
 
@@ -630,13 +634,13 @@
       const galleryModal = document.getElementById("galleryModal");
       const btnPqN = document.getElementById("btnPqN");
       const btnGalClose = document.getElementById("btnGalClose");
+
       const btnPrev = document.getElementById("btnPrev");
       const btnNext = document.getElementById("btnNext");
 
       const galImg = document.getElementById("galImg");
       const galCaption = document.getElementById("galCaption");
 
-      /* ✅ 4 FOTOS COM NOME png_1.jpg ... png_4.jpg */
       const galItems = [
         { src: "imagens/png_1.jpg", txt: "Atendimento rápido e profissional ✅" },
         { src: "imagens/png_2.jpg", txt: "Aplicação com acabamento premium ✅" },
