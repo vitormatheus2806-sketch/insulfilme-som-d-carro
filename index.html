@@ -370,10 +370,6 @@
       background: rgba(0,0,0,.45);
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 25px rgba(0,0,0,.55);
-
-      color: var(--gold2);
-      font-weight:900;
-      font-size:16px;
     }
     .galClose:active{ transform:scale(.98); }
 
@@ -520,7 +516,6 @@
         <div class="badge" id="txtTonalidade">Tonalidade: Sem Insulfilm</div>
       </div>
 
-      <!-- ✅ linha com Lateral / Interno + botão POR QUE NÓS? -->
       <div class="row" id="rowAngulos">
         <button class="opt active" type="button" data-ang="lat">Lateral</button>
         <button class="opt" type="button" data-ang="int">Interno</button>
@@ -641,12 +636,12 @@
       const galImg = document.getElementById("galImg");
       const galCaption = document.getElementById("galCaption");
 
-      /* ✅ SOMENTE 4 FOTOS */
+      /* ✅ 4 FOTOS COM NOME png_1.jpg ... png_4.jpg */
       const galItems = [
-        { src: "imagens/pqn_1.jpg", txt: "Atendimento rápido e profissional ✅" },
-        { src: "imagens/pqn_2.jpg", txt: "Aplicação com acabamento premium ✅" },
-        { src: "imagens/pqn_3.jpg", txt: "Ambiente organizado e seguro ✅" },
-        { src: "imagens/pqn_4.jpg", txt: "Equipe com experiência ✅" }
+        { src: "imagens/png_1.jpg", txt: "Atendimento rápido e profissional ✅" },
+        { src: "imagens/png_2.jpg", txt: "Aplicação com acabamento premium ✅" },
+        { src: "imagens/png_3.jpg", txt: "Ambiente organizado e seguro ✅" },
+        { src: "imagens/png_4.jpg", txt: "Equipe com experiência ✅" }
       ];
 
       let galIndex = 0;
@@ -681,7 +676,6 @@
       btnPrev.addEventListener("click", prevGal);
       btnNext.addEventListener("click", nextGal);
 
-      // fechar clicando fora
       galleryModal.addEventListener("click", function(e){
         if(e.target === galleryModal){
           closeGallery();
