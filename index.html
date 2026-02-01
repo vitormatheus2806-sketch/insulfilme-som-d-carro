@@ -246,6 +246,9 @@
       -webkit-overflow-scrolling: touch;
     }
 
+    .row::-webkit-scrollbar{ height:6px; }
+    .row::-webkit-scrollbar-thumb{ background: rgba(212,164,47,.35); border-radius:20px; }
+
     button.opt{
       border:none;
       outline:none;
@@ -272,6 +275,7 @@
 </head>
 
 <body>
+
   <!-- ===== SPLASH ===== -->
   <section id="splash">
     <div class="splashBox">
@@ -282,14 +286,15 @@
         <p>INSULFILM TONALIDADE</p>
       </div>
 
-      <button class="splashBtn" id="btnEnter">ENTRAR</button>
+      <button class="splashBtn" id="btnEnter" type="button">ENTRAR</button>
+
       <div class="hint">SATURNINO PEREIRA 738 ✅</div>
     </div>
   </section>
 
   <!-- ===== APP ===== -->
   <section id="app">
-    <button id="btnHome">INÍCIO</button>
+    <button id="btnHome" type="button">INÍCIO</button>
 
     <header>
       <img src="logo/logo.png" alt="SOM D CARRO SP" />
@@ -308,19 +313,19 @@
       </div>
 
       <div class="row" id="rowAngulos">
-        <button class="opt active" data-ang="lat">Lateral</button>
-        <button class="opt" data-ang="int">Interno</button>
+        <button class="opt active" type="button" data-ang="lat">Lateral</button>
+        <button class="opt" type="button" data-ang="int">Interno</button>
       </div>
 
       <div style="height:10px;"></div>
 
       <div class="row" id="rowTonalidades">
-        <button class="opt active" data-ton="sem">Sem Insulfilm</button>
-        <button class="opt" data-ton="lei">Dentro da Lei</button>
-        <button class="opt" data-ton="g520">G5/20</button>
-        <button class="opt" data-ton="g5">G5</button>
-        <button class="opt" data-ton="g20">G20</button>
-        <button class="opt" data-ton="g35">G35</button>
+        <button class="opt active" type="button" data-ton="sem">Sem Insulfilm</button>
+        <button class="opt" type="button" data-ton="lei">Dentro da Lei</button>
+        <button class="opt" type="button" data-ton="g520">G5/20</button>
+        <button class="opt" type="button" data-ton="g5">G5</button>
+        <button class="opt" type="button" data-ton="g20">G20</button>
+        <button class="opt" type="button" data-ton="g35">G35</button>
       </div>
     </div>
   </section>
@@ -364,7 +369,7 @@
 
         imgMain.classList.add("fadeOut");
 
-        setTimeout(()=>{
+        setTimeout(() => {
           imgMain.src = file;
 
           txtAngulo.textContent = Ângulo: ${angleNames[currentAngle]};
@@ -374,7 +379,7 @@
         }, 120);
       }
 
-      imgMain.addEventListener("load", ()=>{
+      imgMain.addEventListener("load", () => {
         imgMain.classList.remove("fadeOut");
       });
 
@@ -382,18 +387,18 @@
         splash.style.display = "none";
         app.style.display = "block";
         updateImage();
-        window.scrollTo(0, 0);
+        window.scrollTo(0,0);
       });
 
       btnHome.addEventListener("click", () => {
         app.style.display = "none";
         splash.style.display = "flex";
-        window.scrollTo(0, 0);
+        window.scrollTo(0,0);
       });
 
-      document.querySelectorAll("#rowAngulos button").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          document.querySelectorAll("#rowAngulos button").forEach(b=>b.classList.remove("active"));
+      document.querySelectorAll("#rowAngulos button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#rowAngulos button").forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
 
           currentAngle = btn.dataset.ang;
@@ -401,9 +406,9 @@
         });
       });
 
-      document.querySelectorAll("#rowTonalidades button").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          document.querySelectorAll("#rowTonalidades button").forEach(b=>b.classList.remove("active"));
+      document.querySelectorAll("#rowTonalidades button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#rowTonalidades button").forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
 
           currentTone = btn.dataset.ton;
@@ -412,5 +417,6 @@
       });
     });
   </script>
+
 </body>
 </html>
