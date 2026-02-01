@@ -171,6 +171,40 @@
     }
     #btnHome:active{ transform:scale(.98); }
 
+    /* ✅ BOTÃO INSTAGRAM (DOURADO / PREMIUM) */
+    #btnInsta{
+      position: fixed;
+      top: calc(env(safe-area-inset-top) + 64px);
+      right: 12px;
+      z-index: 9999;
+
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid rgba(212,164,47,.25);
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,.55);
+    }
+    #btnInsta:active{ transform: scale(.98); }
+
+    #btnInsta svg{
+      width: 22px;
+      height: 22px;
+      display: block;
+      stroke: var(--gold2);
+      fill: none;
+      filter: drop-shadow(0 0 10px rgba(212,164,47,.25));
+    }
+
     #viewer{
       padding: 10px 14px 10px;
       display:flex;
@@ -295,8 +329,17 @@
   <section id="app">
     <button id="btnHome" type="button">INÍCIO</button>
 
+    <!-- ✅ BOTÃO INSTAGRAM -->
+    <a id="btnInsta" href="https://www.instagram.com/somdcarrosp?igsh=cHJrNTVpMWRjbXI0" target="_blank" rel="noopener" aria-label="Instagram SOM D CARRO SP">
+      <!-- ÍCONE INSTAGRAM (SVG - DOURADO) -->
+      <svg viewBox="0 0 24 24" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+        <circle cx="12" cy="12" r="4"></circle>
+        <circle cx="17.5" cy="6.5" r="1"></circle>
+      </svg>
+    </a>
+
     <header>
-      <!-- ✅ ÚNICA ALTERAÇÃO: logo agora está em /imagens/logo.png -->
       <img src="./imagens/logo.png" alt="SOM D CARRO SP" />
     </header>
 
