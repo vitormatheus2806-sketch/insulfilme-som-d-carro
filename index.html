@@ -35,6 +35,7 @@
       padding: 22px 22px 10px;
       z-index:99999;
 
+      /* camada escura reduzida em 50% */
       background:
         linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.425)),
         url("https://i.supaimg.com/798d5cd0-1dee-4b7d-9b02-bbcd9f9b55a8.jpg");
@@ -128,6 +129,7 @@
       padding-bottom: 160px;
     }
 
+    /* HEADER colado no topo */
     header{
       position:sticky;
       top:0;
@@ -155,6 +157,7 @@
       filter: drop-shadow(0 0 18px rgba(212,164,47,.35));
     }
 
+    /* Botão INÍCIO */
     #btnHome{
       position:fixed;
       top: calc(env(safe-area-inset-top) + 64px);
@@ -171,6 +174,7 @@
     }
     #btnHome:active{ transform:scale(.98); }
 
+    /* ===== VIEWER ===== */
     #viewer{
       padding: 10px 14px 10px;
       display:flex;
@@ -297,7 +301,8 @@
     <button id="btnHome" type="button">INÍCIO</button>
 
     <header>
-      <img src="logo/logo.png" alt="SOM D CARRO SP" />
+      <!-- ✅ CORRIGIDO: sua pasta é "logotipo" -->
+      <img src="logotipo/logo.png" alt="SOM D CARRO SP" />
     </header>
 
     <div id="viewer">
@@ -331,7 +336,9 @@
   </section>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    // ✅ FIX TOTAL: não trava no GitHub Pages e não dá "Unexpected token"
+    document.addEventListener("DOMContentLoaded", function(){
+
       const angleNames = { lat: "Lateral", int: "Interno" };
 
       const toneNames = {
@@ -349,14 +356,14 @@
       const splash = document.getElementById("splash");
       const app = document.getElementById("app");
 
-      const btnEnter = document.getElementById("btnEnter");
-      const btnHome = document.getElementById("btnHome");
-
       const imgMain = document.getElementById("imgMain");
       const imgWrap = document.getElementById("imgWrap");
 
       const txtAngulo = document.getElementById("txtAngulo");
       const txtTonalidade = document.getElementById("txtTonalidade");
+
+      const btnEnter = document.getElementById("btnEnter");
+      const btnHome = document.getElementById("btnHome");
 
       function playZoom(){
         imgWrap.classList.remove("zoom");
@@ -365,40 +372,42 @@
       }
 
       function updateImage(){
-        const file = imagens/${currentAngle}_${currentTone}.png;
+        const file = "imagens/" + currentAngle + "_" + currentTone + ".png";
 
         imgMain.classList.add("fadeOut");
 
-        setTimeout(() => {
+        setTimeout(function(){
           imgMain.src = file;
 
-          txtAngulo.textContent = Ângulo: ${angleNames[currentAngle]};
-          txtTonalidade.textContent = Tonalidade: ${toneNames[currentTone]};
+          txtAngulo.textContent = "Ângulo: " + angleNames[currentAngle];
+          txtTonalidade.textContent = "Tonalidade: " + toneNames[currentTone];
 
           playZoom();
         }, 120);
       }
 
-      imgMain.addEventListener("load", () => {
+      imgMain.addEventListener("load", function(){
         imgMain.classList.remove("fadeOut");
       });
 
-      btnEnter.addEventListener("click", () => {
+      btnEnter.addEventListener("click", function(){
         splash.style.display = "none";
         app.style.display = "block";
         updateImage();
         window.scrollTo(0,0);
       });
 
-      btnHome.addEventListener("click", () => {
+      btnHome.addEventListener("click", function(){
         app.style.display = "none";
         splash.style.display = "flex";
         window.scrollTo(0,0);
       });
 
-      document.querySelectorAll("#rowAngulos button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll("#rowAngulos button").forEach((b) => b.classList.remove("active"));
+      document.querySelectorAll("#rowAngulos button").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          document.querySelectorAll("#rowAngulos button").forEach(function(b){
+            b.classList.remove("active");
+          });
           btn.classList.add("active");
 
           currentAngle = btn.dataset.ang;
@@ -406,15 +415,18 @@
         });
       });
 
-      document.querySelectorAll("#rowTonalidades button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll("#rowTonalidades button").forEach((b) => b.classList.remove("active"));
+      document.querySelectorAll("#rowTonalidades button").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          document.querySelectorAll("#rowTonalidades button").forEach(function(b){
+            b.classList.remove("active");
+          });
           btn.classList.add("active");
 
           currentTone = btn.dataset.ton;
           updateImage();
         });
       });
+
     });
   </script>
 
