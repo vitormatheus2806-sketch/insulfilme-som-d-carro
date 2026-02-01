@@ -1,90 +1,416 @@
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INSULFILM | SOM D CARRO SP</title>
 
-    const angleNames = { lat: "Lateral", int: "Interno" };
-
-    const toneNames = {
-      sem: "Sem Insulfilm",
-      lei: "Dentro da Lei",
-      g520: "G5/20",
-      g5: "G5",
-      g20: "G20",
-      g35: "G35"
-    };
-
-    let currentAngle = "lat";
-    let currentTone  = "sem";
-
-    const splash = document.getElementById("splash");
-    const app = document.getElementById("app");
-
-    const btnEnter = document.getElementById("btnEnter");
-    const btnHome = document.getElementById("btnHome");
-
-    const imgMain = document.getElementById("imgMain");
-    const imgWrap = document.getElementById("imgWrap");
-
-    const txtAngulo = document.getElementById("txtAngulo");
-    const txtTonalidade = document.getElementById("txtTonalidade");
-
-    function playZoom(){
-      imgWrap.classList.remove("zoom");
-      void imgWrap.offsetWidth;
-      imgWrap.classList.add("zoom");
+  <style>
+    :root{
+      --gold: #d4a42f;
+      --gold2:#ffd86b;
+      --bg:#0b0b0c;
+      --card:#141416;
+      --muted:#a9a9ad;
+      --stroke: rgba(212,164,47,.22);
     }
 
-    function updateImage(){
-      const file = imagens/${currentAngle}_${currentTone}.png;
+    *{ box-sizing:border-box; margin:0; padding:0; }
 
-      imgMain.classList.add("fadeOut");
-
-      setTimeout(()=>{
-        imgMain.src = file;
-
-        txtAngulo.textContent = Ângulo: ${angleNames[currentAngle]};
-        txtTonalidade.textContent = Tonalidade: ${toneNames[currentTone]};
-
-        playZoom();
-      }, 120);
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at 20% 0%, #1b1410 0%, var(--bg) 40%, #080809 100%);
+      color:#fff;
+      min-height:100vh;
+      overflow-x:hidden;
     }
 
-    imgMain.addEventListener("load", ()=>{
-      imgMain.classList.remove("fadeOut");
-    });
+    /* ===== SPLASH ===== */
+    #splash{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding: 22px 22px 10px;
+      z-index:99999;
 
-    btnEnter.addEventListener("click", () => {
-      splash.style.display = "none";
-      app.style.display = "block";
-      updateImage();
-      window.scrollTo(0, 0);
-    });
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.425)),
+        url("https://i.supaimg.com/798d5cd0-1dee-4b7d-9b02-bbcd9f9b55a8.jpg");
 
-    btnHome.addEventListener("click", () => {
-      app.style.display = "none";
-      splash.style.display = "flex";
-      window.scrollTo(0, 0);
-    });
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
 
-    document.querySelectorAll("#rowAngulos button").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        document.querySelectorAll("#rowAngulos button").forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
+    .splashBox{
+      width:min(520px, 100%);
+      background: rgba(15,15,16,.70);
+      border:1px solid var(--stroke);
+      border-radius:22px;
+      padding:22px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.55);
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
 
-        currentAngle = btn.dataset.ang;
+    .spark{
+      position:absolute;
+      inset:-60px;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(212,164,47,.20), transparent 55%),
+        radial-gradient(circle at 70% 55%, rgba(255,216,107,.16), transparent 55%),
+        radial-gradient(circle at 50% 90%, rgba(212,164,47,.10), transparent 55%);
+      filter: blur(1px);
+      pointer-events:none;
+      opacity:.95;
+      z-index:1;
+    }
+
+    .logoBig{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      padding:18px 10px;
+      border-radius:18px;
+      background: rgba(0,0,0,.30);
+      border:1px solid rgba(212,164,47,.20);
+    }
+
+    .logoBig h1{
+      font-size:42px;
+      letter-spacing:2px;
+      font-weight:900;
+      color: var(--gold2);
+      text-shadow: 0 0 25px rgba(212,164,47,.35);
+    }
+
+    .logoBig p{
+      margin-top:8px;
+      color:#e6e0d6;
+      opacity:.90;
+      font-weight:700;
+      letter-spacing:1px;
+      font-size:14px;
+    }
+
+    .splashBtn{
+      margin-top:18px;
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,216,107,.25);
+      background: linear-gradient(180deg, rgba(212,164,47,.95), rgba(180,130,18,.95));
+      color:#111;
+      font-weight:900;
+      font-size:16px;
+      cursor:pointer;
+      transition:.15s;
+      position:relative;
+      z-index:2;
+    }
+    .splashBtn:active{ transform:scale(.98); }
+
+    .hint{
+      margin-top:12px;
+      text-align:center;
+      color: var(--muted);
+      font-size:12px;
+      position:relative;
+      z-index:2;
+    }
+
+    /* ===== APP ===== */
+    #app{
+      display:none;
+      padding-bottom: 160px;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+
+      background: rgba(10,10,11,.92);
+      border-bottom:1px solid rgba(212,164,47,.15);
+      backdrop-filter: blur(12px);
+
+      padding-top: env(safe-area-inset-top);
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 8px;
+
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+    }
+
+    header img{
+      width: 98vw;
+      max-width: 1200px;
+      height: 70px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px rgba(212,164,47,.35));
+    }
+
+    #btnHome{
+      position:fixed;
+      top: calc(env(safe-area-inset-top) + 64px);
+      left:12px;
+      z-index:9999;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(212,164,47,.25);
+      background: rgba(0,0,0,.55);
+      color: var(--gold2);
+      font-weight:900;
+      cursor:pointer;
+      backdrop-filter: blur(10px);
+    }
+    #btnHome:active{ transform:scale(.98); }
+
+    #viewer{
+      padding: 10px 14px 10px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .imgWrap{
+      width:min(560px, 100%);
+      border-radius:22px;
+      border:1px solid rgba(212,164,47,.20);
+      box-shadow: 0 14px 60px rgba(0,0,0,.65);
+      background:#000;
+      overflow:hidden;
+      transform: scale(1);
+    }
+
+    .imgWrap.zoom{
+      animation: zoomSoft .28s ease-out;
+    }
+
+    @keyframes zoomSoft{
+      0%   { transform: scale(1); }
+      100% { transform: scale(1.025); }
+    }
+
+    #imgMain{
+      width:100%;
+      display:block;
+      background:#000;
+      opacity: 1;
+      transition: opacity .18s ease;
+    }
+
+    #imgMain.fadeOut{
+      opacity: 0;
+    }
+
+    #controls{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      padding:14px 14px 16px;
+      background: rgba(12,12,13,.92);
+      border-top:1px solid rgba(212,164,47,.15);
+      backdrop-filter: blur(12px);
+    }
+
+    #info{
+      display:flex;
+      gap:10px;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+
+    .badge{
+      flex:1;
+      padding:12px 14px;
+      border-radius:18px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      color:#ddd;
+      font-weight:700;
+      font-size:13px;
+      text-align:center;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      padding-bottom:6px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    button.opt{
+      border:none;
+      outline:none;
+      padding:14px 16px;
+      border-radius:18px;
+      font-weight:900;
+      font-size:14px;
+      cursor:pointer;
+      background: rgba(255,255,255,.06);
+      color:#d8d8dc;
+      border:1px solid rgba(255,255,255,.08);
+      white-space:nowrap;
+      transition:.12s;
+    }
+
+    button.opt.active{
+      background: rgba(212,164,47,.95);
+      color:#111;
+      border:1px solid rgba(255,216,107,.35);
+    }
+
+    button.opt:active{ transform:scale(.98); }
+  </style>
+</head>
+
+<body>
+  <!-- ===== SPLASH ===== -->
+  <section id="splash">
+    <div class="splashBox">
+      <div class="spark"></div>
+
+      <div class="logoBig">
+        <h1>SOM D CARRO SP</h1>
+        <p>INSULFILM TONALIDADE</p>
+      </div>
+
+      <button class="splashBtn" id="btnEnter">ENTRAR</button>
+      <div class="hint">SATURNINO PEREIRA 738 ✅</div>
+    </div>
+  </section>
+
+  <!-- ===== APP ===== -->
+  <section id="app">
+    <button id="btnHome">INÍCIO</button>
+
+    <header>
+      <img src="logo/logo.png" alt="SOM D CARRO SP" />
+    </header>
+
+    <div id="viewer">
+      <div class="imgWrap" id="imgWrap">
+        <img id="imgMain" src="imagens/lat_sem.png" alt="Catálogo" />
+      </div>
+    </div>
+
+    <div id="controls">
+      <div id="info">
+        <div class="badge" id="txtAngulo">Ângulo: Lateral</div>
+        <div class="badge" id="txtTonalidade">Tonalidade: Sem Insulfilm</div>
+      </div>
+
+      <div class="row" id="rowAngulos">
+        <button class="opt active" data-ang="lat">Lateral</button>
+        <button class="opt" data-ang="int">Interno</button>
+      </div>
+
+      <div style="height:10px;"></div>
+
+      <div class="row" id="rowTonalidades">
+        <button class="opt active" data-ton="sem">Sem Insulfilm</button>
+        <button class="opt" data-ton="lei">Dentro da Lei</button>
+        <button class="opt" data-ton="g520">G5/20</button>
+        <button class="opt" data-ton="g5">G5</button>
+        <button class="opt" data-ton="g20">G20</button>
+        <button class="opt" data-ton="g35">G35</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const angleNames = { lat: "Lateral", int: "Interno" };
+
+      const toneNames = {
+        sem: "Sem Insulfilm",
+        lei: "Dentro da Lei",
+        g520: "G5/20",
+        g5: "G5",
+        g20: "G20",
+        g35: "G35"
+      };
+
+      let currentAngle = "lat";
+      let currentTone  = "sem";
+
+      const splash = document.getElementById("splash");
+      const app = document.getElementById("app");
+
+      const btnEnter = document.getElementById("btnEnter");
+      const btnHome = document.getElementById("btnHome");
+
+      const imgMain = document.getElementById("imgMain");
+      const imgWrap = document.getElementById("imgWrap");
+
+      const txtAngulo = document.getElementById("txtAngulo");
+      const txtTonalidade = document.getElementById("txtTonalidade");
+
+      function playZoom(){
+        imgWrap.classList.remove("zoom");
+        void imgWrap.offsetWidth;
+        imgWrap.classList.add("zoom");
+      }
+
+      function updateImage(){
+        const file = imagens/${currentAngle}_${currentTone}.png;
+
+        imgMain.classList.add("fadeOut");
+
+        setTimeout(()=>{
+          imgMain.src = file;
+
+          txtAngulo.textContent = Ângulo: ${angleNames[currentAngle]};
+          txtTonalidade.textContent = Tonalidade: ${toneNames[currentTone]};
+
+          playZoom();
+        }, 120);
+      }
+
+      imgMain.addEventListener("load", ()=>{
+        imgMain.classList.remove("fadeOut");
+      });
+
+      btnEnter.addEventListener("click", () => {
+        splash.style.display = "none";
+        app.style.display = "block";
         updateImage();
+        window.scrollTo(0, 0);
+      });
+
+      btnHome.addEventListener("click", () => {
+        app.style.display = "none";
+        splash.style.display = "flex";
+        window.scrollTo(0, 0);
+      });
+
+      document.querySelectorAll("#rowAngulos button").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          document.querySelectorAll("#rowAngulos button").forEach(b=>b.classList.remove("active"));
+          btn.classList.add("active");
+
+          currentAngle = btn.dataset.ang;
+          updateImage();
+        });
+      });
+
+      document.querySelectorAll("#rowTonalidades button").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          document.querySelectorAll("#rowTonalidades button").forEach(b=>b.classList.remove("active"));
+          btn.classList.add("active");
+
+          currentTone = btn.dataset.ton;
+          updateImage();
+        });
       });
     });
-
-    document.querySelectorAll("#rowTonalidades button").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        document.querySelectorAll("#rowTonalidades button").forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-
-        currentTone = btn.dataset.ton;
-        updateImage();
-      });
-    });
-
-    console.log("✅ Script carregado!");
-  });
-</script>
+  </script>
+</body>
+</html>
